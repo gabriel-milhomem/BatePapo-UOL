@@ -5,6 +5,7 @@
 var participantes = ["Joao", "Maria", "Fernando"];
 var fundoLateral = document.querySelector(".fundoLateral");
 
+iniciarChat();
 setInterval(iniciarChat, 3000);
 enviarParticipante();
 
@@ -13,21 +14,34 @@ function iniciarChat() {
     requisicaoMensagem.then(inicializarChat);
 }
 
-
+var tamanhoAnterior;
 function inicializarChat(response) {
     var mensagens = response.data;
     var listaPaiMensagens = document.querySelector("#listaMensagem");
+    var podeScrollar;
     listaPaiMensagens.innerHTML = "";
     for(var i = 0; i < mensagens.length; i++) {
-        renderizarMensagem(mensagens[i].text, listaPaiMensagens, mensagens[i].time, mensagens[i].from, mensagens[i].to);
+        if (tamanhoAnterior === mensagens.length) {
+            podeScrollar = false;
+        }
+
+        else {
+            podeScrollar = true;
+        }
+        renderizarMensagem(mensagens[i].text, listaPaiMensagens, mensagens[i].time, mensagens[i].from, mensagens[i].to, podeScrollar);
     }
+
+    tamanhoAnterior = mensagens.length;
 }
 
-function renderizarMensagem(mensagem, ul, tempo, quemEnviou, quemRecebeu) {
+function renderizarMensagem(mensagem, ul, tempo, quemEnviou, quemRecebeu, podeScrollar) {
     var liNovo = document.createElement("li");
     liNovo.classList.add("mensagem");
     liNovo.innerHTML = " <p> <time>" + tempo + "</time> <span> <strong>"+ quemEnviou +" </strong> para <strong>" + quemRecebeu + ": </strong> </span> " + mensagem + "</p>";
     ul.appendChild(liNovo);
+    if  (podeScrollar) {
+        scrollarParaBaixo();
+    }
 }
 
 function enviarParticipante() {
@@ -59,6 +73,11 @@ function temBarraLateral(existeBarra) {
         fundoLateral.style.display = "none";
     }
 
+}
+
+function scrollarParaBaixo() {
+    var chatMensagem = document.querySelector("main");
+    chatMensagem.scrollTop = chatMensagem.scrollHeight;
 }
 
 function esperarFundoLateral() {

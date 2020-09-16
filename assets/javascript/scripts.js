@@ -5,7 +5,7 @@
 var participantes = ["Joao", "Maria", "Fernando"];
 var fundoLateral = document.querySelector(".fundoLateral");
 
-iniciarChat();
+setInterval(iniciarChat, 3000);
 enviarParticipante();
 
 function iniciarChat() {

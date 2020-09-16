@@ -1,26 +1,33 @@
-var mensagens = [];
+//entrada.value = "";
+//var entrada = document.querySelector(".caixaTexto");
+//mensagens.push(entrada.value);
+
 var participantes = ["Joao", "Maria", "Fernando"];
 var fundoLateral = document.querySelector(".fundoLateral");
 
+iniciarChat();
 enviarParticipante();
 
-function enviarMensagem() {
+function iniciarChat() {
+    var requisicaoMensagem = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/messages");
+    requisicaoMensagem.then(inicializarChat);
+}
+
+
+function inicializarChat(response) {
+    var mensagens = response.data;
     var listaPaiMensagens = document.querySelector("#listaMensagem");
-    var entrada = document.querySelector(".caixaTexto");
-    mensagens.push(entrada.value);
     listaPaiMensagens.innerHTML = "";
-    entrada.value = "";
     for(var i = 0; i < mensagens.length; i++) {
-        renderizarMensagem(mensagens[i], listaPaiMensagens);
+        renderizarMensagem(mensagens[i].text, listaPaiMensagens, mensagens[i].time, mensagens[i].from, mensagens[i].to);
     }
 }
 
-function renderizarMensagem(mensagem, ul) {
+function renderizarMensagem(mensagem, ul, tempo, quemEnviou, quemRecebeu) {
     var liNovo = document.createElement("li");
     liNovo.classList.add("mensagem");
-    liNovo.innerHTML = " <p> <time> (09:22:38) </time> <span> <strong> João </strong> para <strong> Maria: </strong> </span> " + mensagem + "</p>";
+    liNovo.innerHTML = " <p> <time>" + tempo + "</time> <span> <strong>"+ quemEnviou +" </strong> para <strong>" + quemRecebeu + ": </strong> </span> " + mensagem + "</p>";
     ul.appendChild(liNovo);
-    scrollarParaBaixo();
 }
 
 function enviarParticipante() {
@@ -36,11 +43,6 @@ function renderizarParticipante(nome, ul) {
     liNovo.classList.add("participante");
     liNovo.innerHTML = " <div> <ion-icon name= 'person-circle'> </ion-icon> <span> " + nome + " </span> </div> <ion-icon class= 'verificado' name= 'checkmark-sharp'> </ion-icon>";
     ul.appendChild(liNovo);
-}
-
-function scrollarParaBaixo() {
-    var chatMensagem = document.querySelector("main");
-    chatMensagem.scrollTop = chatMensagem.scrollHeight - chatMensagem.clientHeight;
 }
 
 function temBarraLateral(existeBarra) {

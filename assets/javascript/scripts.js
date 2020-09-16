@@ -18,26 +18,40 @@ var tamanhoAnterior;
 function inicializarChat(response) {
     var mensagens = response.data;
     var listaPaiMensagens = document.querySelector("#listaMensagem");
-    var podeScrollar;
+    var podeScrollar = false;
     listaPaiMensagens.innerHTML = "";
-    for(var i = 0; i < mensagens.length; i++) {
-        if (tamanhoAnterior === mensagens.length) {
-            podeScrollar = false;
-        }
 
-        else {
-            podeScrollar = true;
+    if (tamanhoAnterior !== mensagens.length) {
+        podeScrollar = true;
+    }
+
+    for(var i = 0; i < mensagens.length; i++) {
+        if(mensagens[i].to !== "Milhominho" && mensagens[i].type === "private_message"){
+            continue;
         }
-        renderizarMensagem(mensagens[i].text, listaPaiMensagens, mensagens[i].time, mensagens[i].from, mensagens[i].to, podeScrollar);
+        renderizarMensagem(mensagens[i].text, listaPaiMensagens, mensagens[i].time, mensagens[i].from, mensagens[i].to, podeScrollar, mensagens[i].type);
     }
 
     tamanhoAnterior = mensagens.length;
 }
 
-function renderizarMensagem(mensagem, ul, tempo, quemEnviou, quemRecebeu, podeScrollar) {
+function renderizarMensagem(mensagem, ul, tempo, quemEnviou, quemRecebeu, podeScrollar, tipoMensagem) {
     var liNovo = document.createElement("li");
+    var textoDeEnvio = "para";
     liNovo.classList.add("mensagem");
-    liNovo.innerHTML = " <p> <time>" + tempo + "</time> <span> <strong>"+ quemEnviou +" </strong> para <strong>" + quemRecebeu + ": </strong> </span> " + mensagem + "</p>";
+
+    if (tipoMensagem === "status") {
+        liNovo.classList.add("mensagemSairEntrar");
+        textoDeEnvio = "";
+        quemRecebeu = "";
+    }
+
+    if (tipoMensagem === "private_message") {
+        liNovo.classList.add("mensagemReservada");
+        textoDeEnvio = "reservadamente para"
+    }
+
+    liNovo.innerHTML = "<p> <time>" + tempo + "</time> <span> <strong>" + quemEnviou + "</strong> " + textoDeEnvio + " <strong>" + quemRecebeu + ": </strong> </span> " + mensagem + "</p>";
     ul.appendChild(liNovo);
     if  (podeScrollar) {
         scrollarParaBaixo();

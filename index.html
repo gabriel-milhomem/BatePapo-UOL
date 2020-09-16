@@ -14,25 +14,71 @@
     <body>
         <header>
             <img src= "assets/imagens/logo.png" alt= "logo do bate papo uol" title= "bate papo uol"/>
-            <button> <ion-icon name= "people-sharp"> </ion-icon> </button>
+            <button onclick= "temBarraLateral(false)"> <ion-icon name= "people-sharp"> </ion-icon> </button>
         </header>
 
         <main>
             <ul id= "listaMensagem">
-                <li class= "mensagem">
-                    <p> <time> (09:22:38) </time> <span> <strong> João </strong> para <strong> Maria: </strong> </span> EAE GLR AHSFODUFHASDFU </p>
-                </li>
 
             </ul>
         </main>
+
+        <div class= "fundoLateral" onclick= "temBarraLateral(true)">
+
+        </div>
+
+        <aside>
+            <section>
+                <h1> <strong> Escolha um contato<br/> para enviar mensagem: </strong> </h1>
+                    
+                <li id= "opcaoTodos" class= "participante">
+                    <div>
+                        <ion-icon name= "people-sharp"> </ion-icon>
+                        <p> Todos </p>
+                    </div>
+
+                    <ion-icon class= "verificado" name= "checkmark-sharp"> </ion-icon>
+                </li>
+
+                <ul id= "listaParticipante">
+                    
+                </ul>
+            </section>
+
+            <section>
+                <h1> <strong> Escolha a visibilidade: </strong> </h1>
+
+                <ul>
+                    <li class = "visibilidade">
+                        <div>
+                            <ion-icon name= "lock-open"> </ion-icon> 
+                            <p> Público </p>
+                        </div>
+
+                        <ion-icon class= "verificado" name= "checkmark-sharp"> </ion-icon>
+                    </li>
+
+                    <li class= "visibilidade">
+                        <div>
+                            <ion-icon name= "lock-open"> </ion-icon>
+                            <p> Reservadamente </p>
+                        </div>
+
+                        <ion-icon class= "verificado" name= "checkmark-sharp"> </ion-icon>
+                    </li>
+                </ul>
+            </section>
+
+        </aside>
 
         <footer>
             <form>
                 <input class= "caixaTexto" type= "text" placeholder= "Escreva aqui..." autocomplete= "off"> </input>
                 <p> Enviando para <em> Maria (reservadamente) </em> </p>
             </form>
-            <button onclick= "enviarMensagem()"> <ion-icon name="paper-plane-outline"> </ion-icon> </button>
+            <button onclick= "enviarMensagem()"> <ion-icon name= "paper-plane-outline"> </ion-icon> </button>
         </footer>
+
 
     <script src= "https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"> </script>
     <script src= "assets/javascript/scripts.js" type= "text/javascript"> </script>

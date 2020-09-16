@@ -14,6 +14,7 @@ body {
     font-style: normal;
     padding: 80px 0px;
     color: #333333;
+    font-size: 16px;
     height: 100vh;
 }
 
@@ -42,7 +43,7 @@ header, footer {
 }
 
 header {
-    padding: 0px 30px;
+    padding: 0px 22px;
     top: 0px;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
     font-size: 44px;
@@ -53,10 +54,79 @@ header img {
     width: 75px;
 }
 
+aside, .fundoLateral {
+    position: fixed;
+    z-index: 2;
+    height: 100vh;
+    top: 0px;
+}
+
+.fundoLateral {
+    display: none;
+    width: 31.5vw;
+    left: 0px;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.3s linear;
+}
+
+.fundoPretoLateral {
+    background: rgba(0, 0, 0, 0.55);
+}
+
+aside {
+    transition: right 0.4s linear;
+    right: -68.5vw;
+    width: 68.5vw;
+    background-color: #FFFFFF;
+    padding: 25px 20px 10px 20px;
+}
+
+aside ion-icon {
+    font-size: 26px;
+    margin-right: 8px;
+}
+
+.verificado {
+    font-size: 16px;
+    color: #38c035;
+}
+
+#listaParticipante {
+    margin-bottom: 35px;
+}
+
+#opcaoTodos {
+    margin-top: 35px;
+}
+
+.participante, .visibilidade {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.participante div, .visibilidade div {
+    display: flex;
+    align-items: center;
+}
+
+
+aside h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+
+.asideNaTela {
+    right: 0px;
+}
+
 main {
     padding-top: 25px;
     height: calc(100vh - 160px);
     overflow-y: scroll;
+    z-index: 0;
 }
 
 .mensagem {
@@ -90,6 +160,9 @@ footer {
     padding: 20px 15px 15px 15px;
     bottom: 0px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+footer ion-icon {
     font-size: 32px;
 }
 
@@ -103,7 +176,6 @@ form {
     flex-direction: column;
     justify-content: space-between;
     flex-grow: 1;
-    font-size: 16px;
     height: 100%;
     margin-right: 5px;
 }

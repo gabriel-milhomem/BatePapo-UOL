@@ -29,7 +29,7 @@ function estarPresente() {
 function iniciarChat() {
     var requisicaoMensagem = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/messages");
     requisicaoMensagem.then(logicaIniciarChat);
-    setInterval(estarPresente, 5000);
+    /*setInterval(estarPresente, 5000);*/
 }
 
 var tamanhoAnterior;
@@ -61,6 +61,12 @@ function enviarMensagem() {
     }
     entrada.value = "";
     renderizarMensagem(objetoMensagem.text, listaPaiMensagens, null, objetoMensagem.from, objetoMensagem.to, true, objetoMensagem.type);
+    var promessaMensagem = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/messages", objetoMensagem);
+    promessaMensagem.catch(tratarErroMensagem);
+}
+
+function tratarErroMensagem() {
+    window.location.reload();
 }
 
 function renderizarMensagem(mensagem, ul, tempo, quemEnviou, quemRecebeu, podeScrollar, tipoMensagem) {

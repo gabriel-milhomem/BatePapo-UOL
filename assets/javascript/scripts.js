@@ -1,13 +1,14 @@
 var listaPaiMensagens;
-var participantes = ["Joao", "Maria", "Fernando"];
 var fundoLateral = document.querySelector(".fundoLateral");
 var outroPrompt = 0;
+var objetoNome;
 
 entrouSite();
-setInterval(iniciarChat, 3000);
-enviarParticipante();
+iniciarParticipante();
+/*setInterval(iniciarChat, 3000);
+setInterval(iniciarParticipante, 10000);
+setInterval(estarPresente, 5000);*/
 
-var objetoNome;
 function entrouSite() {
     if (outroPrompt === 0) {
         var seuNome = prompt("Qual o seu nome: ");
@@ -17,9 +18,8 @@ function entrouSite() {
     }
     objetoNome = {"name": seuNome};
     outroPrompt++;
-    var requisicaoEnviarNome = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/participants", objetoNome);
-    requisicaoEnviarNome.then(iniciarChat).catch(entrouSite);
-
+    var reqEnviarNome = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/participants", objetoNome);
+    reqEnviarNome.then(iniciarChat).catch(entrouSite);
 }
 
 function estarPresente() {
@@ -27,9 +27,24 @@ function estarPresente() {
 }
 
 function iniciarChat() {
-    var requisicaoMensagem = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/messages");
-    requisicaoMensagem.then(logicaIniciarChat);
-    /*setInterval(estarPresente, 5000);*/
+    var reqMensagem = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/messages");
+    reqMensagem.then(logicaIniciarChat);
+}
+
+function iniciarParticipante() {
+    var reqParticipante = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/participants");
+    reqParticipante.then(logicaIniciarParticipante);
+
+}
+
+function logicaIniciarParticipante(resposta) {
+    var participantes = resposta.data;
+    var listaPaiParticipantes = document.querySelector("#listaParticipante");
+    listaPaiParticipantes.innerHTML = "";
+
+    for(var i = 0; i < participantes.length; i++) {
+        renderizarParticipante(participantes[i].name, listaPaiParticipantes);
+    }
 }
 
 var tamanhoAnterior;
@@ -60,7 +75,7 @@ function enviarMensagem() {
         return;
     }
     entrada.value = "";
-    renderizarMensagem(objetoMensagem.text, listaPaiMensagens, null, objetoMensagem.from, objetoMensagem.to, true, objetoMensagem.type);
+    renderizarMensagem(objetoMensagem.text, listaPaiMensagens, "", objetoMensagem.from, objetoMensagem.to, true, objetoMensagem.type);
     var promessaMensagem = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/messages", objetoMensagem);
     promessaMensagem.catch(tratarErroMensagem);
 }
@@ -89,14 +104,6 @@ function renderizarMensagem(mensagem, ul, tempo, quemEnviou, quemRecebeu, podeSc
     ul.appendChild(liNovo);
     if (podeScrollar) {
         scrollarParaBaixo();
-    }
-}
-
-function enviarParticipante() {
-    var listaPaiParticipantes = document.querySelector("#listaParticipante");
-    listaPaiParticipantes.innerHTML = "";
-    for(var i = 0; i < participantes.length; i++) {
-        renderizarParticipante(participantes[i], listaPaiParticipantes);
     }
 }
 

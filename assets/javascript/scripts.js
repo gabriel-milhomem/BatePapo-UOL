@@ -1,14 +1,10 @@
-//entrada.value = "";
-//var entrada = document.querySelector(".caixaTexto");
-//mensagens.push(entrada.value);
-
+var listaPaiMensagens;
 var participantes = ["Joao", "Maria", "Fernando"];
 var fundoLateral = document.querySelector(".fundoLateral");
 var outroPrompt = 0;
 
 entrouSite();
 setInterval(iniciarChat, 3000);
-
 enviarParticipante();
 
 var objetoNome;
@@ -26,7 +22,6 @@ function entrouSite() {
 
 }
 
-
 function estarPresente() {
     axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/status", objetoNome);
 }
@@ -40,7 +35,7 @@ function iniciarChat() {
 var tamanhoAnterior;
 function logicaIniciarChat(resposta) {
     var mensagens = resposta.data;
-    var listaPaiMensagens = document.querySelector("#listaMensagem");
+    listaPaiMensagens = document.querySelector("#listaMensagem");
     var podeScrollar = false;
     listaPaiMensagens.innerHTML = "";
 
@@ -56,6 +51,16 @@ function logicaIniciarChat(resposta) {
     }
 
     tamanhoAnterior = mensagens.length;
+}
+
+function enviarMensagem() {
+    var entrada = document.querySelector(".caixaTexto");
+    var objetoMensagem = {"from": objetoNome.name, "to": "todos", "text": entrada.value, "type": "message"};
+    if(entrada.value === "") {
+        return;
+    }
+    entrada.value = "";
+    renderizarMensagem(objetoMensagem.text, listaPaiMensagens, null, objetoMensagem.from, objetoMensagem.to, true, objetoMensagem.type);
 }
 
 function renderizarMensagem(mensagem, ul, tempo, quemEnviou, quemRecebeu, podeScrollar, tipoMensagem) {
@@ -76,7 +81,7 @@ function renderizarMensagem(mensagem, ul, tempo, quemEnviou, quemRecebeu, podeSc
 
     liNovo.innerHTML = "<p> <time>" + tempo + "</time> <span> <strong>" + quemEnviou + "</strong> " + textoDeEnvio + " <strong>" + quemRecebeu + ": </strong> </span> " + mensagem + "</p>";
     ul.appendChild(liNovo);
-    if  (podeScrollar) {
+    if (podeScrollar) {
         scrollarParaBaixo();
     }
 }

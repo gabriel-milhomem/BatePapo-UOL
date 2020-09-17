@@ -8,8 +8,10 @@ var outroPrompt = 0;
 
 entrouSite();
 setInterval(iniciarChat, 3000);
+
 enviarParticipante();
 
+var objetoNome;
 function entrouSite() {
     if (outroPrompt === 0) {
         var seuNome = prompt("Qual o seu nome: ");
@@ -17,20 +19,26 @@ function entrouSite() {
     else {
         var seuNome = prompt("Digite outro nome, pois este já está em uso: ")
     }
-    var objetoNome = {"name": seuNome};
+    objetoNome = {"name": seuNome};
     outroPrompt++;
     var requisicaoEnviarNome = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/participants", objetoNome);
     requisicaoEnviarNome.then(iniciarChat).catch(entrouSite);
+
 }
 
+
+function estarPresente() {
+    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/status", objetoNome);
+}
 
 function iniciarChat() {
     var requisicaoMensagem = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/messages");
-    requisicaoMensagem.then(inicializarChat);
+    requisicaoMensagem.then(logicaIniciarChat);
+    setInterval(estarPresente, 5000);
 }
 
 var tamanhoAnterior;
-function inicializarChat(resposta) {
+function logicaIniciarChat(resposta) {
     var mensagens = resposta.data;
     var listaPaiMensagens = document.querySelector("#listaMensagem");
     var podeScrollar = false;

@@ -5,9 +5,16 @@
 var participantes = ["Joao", "Maria", "Fernando"];
 var fundoLateral = document.querySelector(".fundoLateral");
 
+entrouSite();
 iniciarChat();
 setInterval(iniciarChat, 3000);
 enviarParticipante();
+
+function entrouSite() {
+    var seuNome = prompt("Qual o seu nome ? ");
+    var objetoNome = {"name": seuNome};
+    var requisicaoEnviarNome = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/participants", objetoNome);
+}
 
 function iniciarChat() {
     var requisicaoMensagem = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/messages");

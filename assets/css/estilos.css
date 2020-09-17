@@ -137,7 +137,7 @@ main {
     padding: 10px;
     margin-bottom: 5px;
     line-height: 160%;
-    word-break: break-word;
+    word-break: break-all;
 }
 
 .mensagem span, .mensagem time {

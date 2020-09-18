@@ -31,13 +31,13 @@
             <section>
                 <h1> <strong> Escolha um contato<br/> para enviar mensagem: </strong> </h1>
                     
-                <li id= "opcaoTodos" class= "participante" onclick= "escolherParticipante(this)">
+                <li id= "opcaoTodos" class= "participante" onclick= "escolherVerificado(this, true)">
                     <div>
                         <ion-icon name= "people-sharp"> </ion-icon>
-                        <p> Todos </p>
+                        <span id= "nomeParticipante"> Todos <p>
                     </div>
 
-                    <ion-icon class= "verificado" name= "checkmark-sharp"> </ion-icon>
+                    <ion-icon class= "verifParticipante verifAparece" name= "checkmark-sharp"> </ion-icon>
                 </li>
 
                 <ul id= "listaParticipante">
@@ -49,22 +49,22 @@
                 <h1> <strong> Escolha a visibilidade: </strong> </h1>
 
                 <ul>
-                    <li class = "visibilidade">
+                    <li class = "visibilidade" onclick= "escolherVerificado(this, false)">
                         <div>
                             <ion-icon name= "lock-open"> </ion-icon> 
                             <p> Público </p>
                         </div>
 
-                        <ion-icon class= "verificado" name= "checkmark-sharp"> </ion-icon>
+                        <ion-icon class= "verifVisibilidade verifAparece" name= "checkmark-sharp"> </ion-icon>
                     </li>
 
-                    <li class= "visibilidade">
+                    <li class= "visibilidade" onclick= "escolherVerificado(this, false)">
                         <div>
                             <ion-icon name= "lock-open"> </ion-icon>
                             <p> Reservadamente </p>
                         </div>
 
-                        <ion-icon class= "verificado" name= "checkmark-sharp"> </ion-icon>
+                        <ion-icon class= "verifVisibilidade verifSome" name= "checkmark-sharp"> </ion-icon>
                     </li>
                 </ul>
             </section>
@@ -74,7 +74,7 @@
         <footer>
             <form>
                 <input class= "caixaTexto" type= "text" placeholder= "Escreva aqui..." autocomplete= "off"> </input>
-                <p> Enviando para <em> Maria (reservadamente) </em> </p>
+                <p> Enviando para <span id= "enviarPara"> Todos </span> <em> (público) </em> </p>
             </form>
             <button onclick= "enviarMensagem()"> <ion-icon name= "paper-plane-outline"> </ion-icon> </button>
         </footer>

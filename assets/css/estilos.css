@@ -79,16 +79,26 @@ aside {
     width: 68.5vw;
     background-color: #FFFFFF;
     padding: 25px 20px 10px 20px;
+    overflow-y: scroll;
 }
 
 aside ion-icon {
     font-size: 26px;
     margin-right: 8px;
+    flex-shrink: 0;
 }
 
-.verificado {
+.verifParticipante, .verifVisibilidade {
     font-size: 16px;
     color: #38c035;
+}
+
+.verifSome {
+    display: none;
+}
+
+.verifAparece {
+    display: block;
 }
 
 #listaParticipante {
@@ -109,6 +119,14 @@ aside ion-icon {
 .participante div, .visibilidade div {
     display: flex;
     align-items: center;
+    width: calc(100% - 30px);
+}
+
+#nomeParticipante {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    white-space: nowrap;
 }
 
 
@@ -157,7 +175,7 @@ time {
 }
 
 footer {
-    padding: 20px 15px 15px 15px;
+    padding: 15px 15px 15px 15px;
     bottom: 0px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
 }
@@ -174,15 +192,21 @@ footer p {
 form {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-grow: 1;
     height: 100%;
     margin-right: 5px;
 }
 
+#enviarPara {
+    word-break: break-all;
+}
+
 .caixaTexto {
     height: 20px;
     color: inherit;
+    flex-shrink: 0;
+    margin-bottom: 4px;
 }
 
 .caixaTexto::placeholder {

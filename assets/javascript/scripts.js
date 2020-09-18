@@ -1,33 +1,55 @@
+var inputLogin = document.querySelector("#inputLogin");
 var listaPaiMensagens;
 var fundoLateral = document.querySelector(".fundoLateral");
 var objetoMensagem = {"from": undefined, "to": "Todos", "text": undefined, "type": "message"};
-var outroPrompt = 0;
 var objetoNome;
 var ultimoClique;
 var enviarPara = document.querySelector("#enviarPara");
 
-entrouSite();
-teclaEnter();
-iniciarParticipante();
-setInterval(iniciarChat, 3000);
-setInterval(iniciarParticipante, 10000);
-setInterval(estarPresente, 5000);
-
 function entrouSite() {
-    if (outroPrompt === 0) {
-        var seuNome = prompt("Qual o seu nome: ");
+    teclaEnter();
+    
+    if(inputLogin.value === "") {
+        return;
     }
-    else {
-        var seuNome = prompt("Digite outro nome, pois este já está em uso: ");
-    }
+
+    var seuNome = inputLogin.value;
     objetoNome = {"name": seuNome};
-    outroPrompt++;
     var reqEnviarNome = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/participants", objetoNome);
-    reqEnviarNome.then(iniciarChat).catch(entrouSite);
+    reqEnviarNome.then(carregarChat).catch(erroLogin);
+}
+
+function erroLogin() {
+    var mensagemErro = document.querySelector(".erroServidor");
+    mensagemErro.style.display = "block";
+    inputLogin.value === "";
 }
 
 function estarPresente() {
     axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v1/uol/status", objetoNome);
+}
+
+function carregarChat() {
+    var caixaLogin = document.querySelector("#caixaLogin");
+    var imagemCarregando = document.createElement("img");
+    var textoCarregando = document.createElement("p");
+    imagemCarregando.setAttribute("src", "assets/imagens/carregando.png");
+    caixaLogin.innerHTML = "";
+    textoCarregando.innerText = "Entrando...";
+    caixaLogin.appendChild(imagemCarregando);
+    caixaLogin.appendChild(textoCarregando);
+    setTimeout(transicaoDeTela, 1000);
+}
+
+
+function transicaoDeTela() {
+    document.querySelector(".telaLogin").style.display = "none";
+    document.querySelector("#interface").style.display = "block";
+    iniciarParticipante();
+    iniciarChat();
+    setInterval(iniciarChat, 3000);
+    setInterval(iniciarParticipante, 10000);
+    setInterval(estarPresente, 5000);
 }
 
 function iniciarChat() {
@@ -65,15 +87,15 @@ function logicaIniciarParticipante(resposta) {
     }
 }
 
-var tamanhoAnterior;
+var listaServidorAnterior = null;
 function logicaIniciarChat(resposta) {
     var mensagens = resposta.data;
     listaPaiMensagens = document.querySelector("#listaMensagem");
-    var podeScrollar = false;
+    var podeScrollar = true;
     listaPaiMensagens.innerHTML = "";
 
-    if (tamanhoAnterior !== mensagens.length) {
-        podeScrollar = true;
+    if (listaServidorAnterior === mensagens[mensagens.length - 1].time) {
+        podeScrollar = false;
     }
 
     for(var i = 0; i < mensagens.length; i++) {
@@ -85,7 +107,7 @@ function logicaIniciarChat(resposta) {
         renderizarMensagem(mensagens[i].text, listaPaiMensagens, mensagens[i].time, mensagens[i].from, mensagens[i].to, podeScrollar, mensagens[i].type);
     }
 
-    tamanhoAnterior = mensagens.length;
+    listaServidorAnterior = mensagens[mensagens.length - 1].time;
 }
 
 function enviarMensagem() {
@@ -223,6 +245,15 @@ function teclaEnter() {
             document.querySelector("#botaoEnviar").click();
         }
     });
+
+    inputLogin.addEventListener("keyup", function(event) {
+        if(event.keyCode === 13) {
+            if(inputLogin.value == "") {
+                return;
+            }
+            document.querySelector("#enviarLogin").click();
+        }
+    });
 }
 
 function scrollarParaBaixo() {
@@ -233,3 +264,14 @@ function scrollarParaBaixo() {
 function esperarFundoLateral() {
     fundoLateral.classList.toggle("fundoPretoLateral");
 }
+
+// Tentativa opcional 2;
+// telaUsuario();
+/*function telaUsuario() {
+    if(window.innerWidth > 700) {
+        document.querySelector("#mostrarParticipante").setAttribute("onclick", "temBarraLateral(null)");
+        document.querySelector("#interface").style.width = "70vw";
+        var telaLateral = document.querySelector("aside");
+        telaLateral.classList.add("telaLateralDesktop");
+    }
+}*/

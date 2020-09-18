@@ -12,72 +12,83 @@
     </head>
 
     <body>
-        <header>
-            <img src= "assets/imagens/logo.png" alt= "logo do bate papo uol" title= "bate papo uol"/>
-            <button onclick= "temBarraLateral(false)"> <ion-icon name= "people-sharp"> </ion-icon> </button>
-        </header>
+        <div id= "interface">
+            <header>
+                <img src= "assets/imagens/logo.png" alt= "logo do bate papo uol" title= "bate papo uol"/>
+                <button id= "mostrarParticipante" onclick= "temBarraLateral(false)"> <ion-icon name= "people-sharp"> </ion-icon> </button>
+            </header>
 
-        <main>
-            <ul id= "listaMensagem">
+            <main>
+                <ul id= "listaMensagem">
 
-            </ul>
-        </main>
+                </ul>
+            </main>
 
-        <div class= "fundoLateral" onclick= "temBarraLateral(true)">
+            <div class= "fundoLateral" onclick= "temBarraLateral(true)">
 
+            </div>
+
+            <aside>
+                <section>
+                    <h1> <strong> Escolha um contato<br/> para enviar mensagem: </strong> </h1>
+                        
+                    <li id= "opcaoTodos" class= "participante" onclick= "escolherVerificado(this, true)">
+                        <div>
+                            <ion-icon name= "people-sharp"> </ion-icon>
+                            <span id= "nomeParticipante"> Todos <p>
+                        </div>
+
+                        <ion-icon class= "verifParticipante verifAparece" name= "checkmark-sharp"> </ion-icon>
+                    </li>
+
+                    <ul id= "listaParticipante">
+
+                    </ul>
+                </section>
+
+                <section>
+                    <h1> <strong> Escolha a visibilidade: </strong> </h1>
+
+                    <ul>
+                        <li class = "visibilidade" onclick= "escolherVerificado(this, false)">
+                            <div>
+                                <ion-icon name= "lock-open"> </ion-icon> 
+                                <p> Público </p>
+                            </div>
+
+                            <ion-icon class= "verifVisibilidade verifAparece" name= "checkmark-sharp"> </ion-icon>
+                        </li>
+
+                        <li class= "visibilidade" onclick= "escolherVerificado(this, false)">
+                            <div>
+                                <ion-icon name= "lock-open"> </ion-icon>
+                                <p> Reservadamente </p>
+                            </div>
+
+                            <ion-icon class= "verifVisibilidade verifSome" name= "checkmark-sharp"> </ion-icon>
+                        </li>
+                    </ul>
+                </section>
+
+            </aside>
+
+            <footer>
+                <div class= "containerEntrada">
+                    <input class= "caixaTexto" type= "text" placeholder= "Escreva aqui..." autocomplete= "off"/>
+                    <p> Enviando para <span id= "enviarPara"> Todos </span> <em> (público) </em> </p>
+                </div>
+                <button id= "botaoEnviar" onclick= "enviarMensagem()"> <ion-icon name= "paper-plane-outline"> </ion-icon> </button>
+            </footer>
         </div>
 
-        <aside>
-            <section>
-                <h1> <strong> Escolha um contato<br/> para enviar mensagem: </strong> </h1>
-                    
-                <li id= "opcaoTodos" class= "participante" onclick= "escolherVerificado(this, true)">
-                    <div>
-                        <ion-icon name= "people-sharp"> </ion-icon>
-                        <span id= "nomeParticipante"> Todos <p>
-                    </div>
-
-                    <ion-icon class= "verifParticipante verifAparece" name= "checkmark-sharp"> </ion-icon>
-                </li>
-
-                <ul id= "listaParticipante">
-
-                </ul>
-            </section>
-
-            <section>
-                <h1> <strong> Escolha a visibilidade: </strong> </h1>
-
-                <ul>
-                    <li class = "visibilidade" onclick= "escolherVerificado(this, false)">
-                        <div>
-                            <ion-icon name= "lock-open"> </ion-icon> 
-                            <p> Público </p>
-                        </div>
-
-                        <ion-icon class= "verifVisibilidade verifAparece" name= "checkmark-sharp"> </ion-icon>
-                    </li>
-
-                    <li class= "visibilidade" onclick= "escolherVerificado(this, false)">
-                        <div>
-                            <ion-icon name= "lock-open"> </ion-icon>
-                            <p> Reservadamente </p>
-                        </div>
-
-                        <ion-icon class= "verifVisibilidade verifSome" name= "checkmark-sharp"> </ion-icon>
-                    </li>
-                </ul>
-            </section>
-
-        </aside>
-
-        <footer>
-            <div class= "containerEntrada">
-                <input class= "caixaTexto" type= "text" placeholder= "Escreva aqui..." autocomplete= "off"> </input>
-                <p> Enviando para <span id= "enviarPara"> Todos </span> <em> (público) </em> </p>
+        <article class= "telaLogin">
+            <img class= "logo" src= "assets/imagens/logo.png" alt= "logo do bate papo uol" title= "bate papo uol"/>
+            <div id= "caixaLogin">
+                <p class= "erroServidor"> <strong> Digite outro nome, pois este já está em uso: </strong> </p>
+                <input id= "inputLogin" type= "text" maxlength = "25" placeholder= "Digite seu nome" autocomplete= "off" />
+                <button onclick = "entrouSite()" id= "enviarLogin"> <em> Entrar <em> </button>
             </div>
-            <button id= "botaoEnviar" onclick= "enviarMensagem()"> <ion-icon name= "paper-plane-outline"> </ion-icon> </button>
-        </footer>
+        </article>
 
 
     <script src= "https://unpkg.com/axios/dist/axios.min.js"> </script>

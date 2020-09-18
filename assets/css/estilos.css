@@ -189,7 +189,7 @@ footer p {
     letter-spacing: -0.5px;
 }
 
-form {
+.containerEntrada {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

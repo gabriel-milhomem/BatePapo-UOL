@@ -7,6 +7,7 @@ var ultimoClique;
 var enviarPara = document.querySelector("#enviarPara");
 
 entrouSite();
+teclaEnter();
 iniciarParticipante();
 setInterval(iniciarChat, 3000);
 setInterval(iniciarParticipante, 10000);
@@ -209,6 +210,19 @@ function temBarraLateral(existeBarra) {
         menuLateral.classList.toggle("asideNaTela");
         fundoLateral.style.display = "none";
     }
+}
+
+
+function teclaEnter() {
+    var input = document.querySelector(".caixaTexto");
+    input.addEventListener("keyup", function(event) {
+        if(event.keyCode === 13) {
+            if(input.value == "") {
+                return;
+            }
+            document.querySelector("#botaoEnviar").click();
+        }
+    });
 }
 
 function scrollarParaBaixo() {

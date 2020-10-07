@@ -26,7 +26,7 @@ button, input {
     color: inherit;
 }
 
-button, .participante, .visiblidade {
+button, .participante, .visibilidade {
     cursor: pointer;
 }
 
@@ -37,7 +37,6 @@ button, .participante, .visiblidade {
 .telaLogin {
     width: 100vw;
     height: calc(100vh - 160px);
-
     background: #FFFFFF;
 }
 
@@ -237,13 +236,6 @@ time {
     background: #FFDEDE;
 }
 
-/*.telaLateralDesktop {
-    position: fixed;
-    width: 30vw;
-    right: 0px;
-    top: 0px;
-}*/
-
 footer {
     padding: 15px 15px 15px 15px;
     bottom: 0px;
@@ -284,4 +276,45 @@ footer em {
 
 .caixaTexto::placeholder {
     font-style: italic;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+@media (min-width: 700px) {
+    body {
+        padding: 100px 0px;
+    }
+    footer, header {
+        width: calc(70vw - 70px);
+        left: 70px;
+        box-shadow: none;
+        border: 1px solid #C5C5C5;
+        border-right: none;
+    }
+
+    footer {
+        bottom: 20px;
+    }
+
+    header {
+        top: 20px;
+    }
+
+    .telaLateralDesktop {
+        position: fixed;
+        width: calc(30vw - 70px);
+        right: 70px;
+        top: 20px;
+        height: calc(100% - 40px);
+        border: 1px solid #C5C5C5;
+    }
+
+    #interface {
+        width: calc(70vw - 70px);
+        margin-left: 70px;
+        margin-right: 70px;
+        border-left: 2px solid lightgrey;
+    }
+
 }

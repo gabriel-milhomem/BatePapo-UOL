@@ -220,6 +220,9 @@ function escolherVerificado(escolhido, cliqueSecao) {
 }
 
 function temBarraLateral(existeBarra) {
+    if(existeBarra === null) {
+        return;
+    }
     var menuLateral = document.querySelector("aside");
     if(!existeBarra) {
         fundoLateral.style.display = "block";
@@ -251,7 +254,7 @@ function teclaEnter() {
             if(inputLogin.value == "") {
                 return;
             }
-            document.querySelector("#enviarLogin").click();
+            document.querySelector("enviarLogin").click();
         }
     });
 }
@@ -266,12 +269,9 @@ function esperarFundoLateral() {
 }
 
 // Tentativa opcional 2;
-// telaUsuario();
-/*function telaUsuario() {
+telaUsuario();
+function telaUsuario() {
     if(window.innerWidth > 700) {
         document.querySelector("#mostrarParticipante").setAttribute("onclick", "temBarraLateral(null)");
-        document.querySelector("#interface").style.width = "70vw";
-        var telaLateral = document.querySelector("aside");
-        telaLateral.classList.add("telaLateralDesktop");
     }
-}*/
+}
